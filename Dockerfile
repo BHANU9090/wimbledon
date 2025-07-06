@@ -1,12 +1,12 @@
-# Use a lightweight Java image
-FROM eclipse-temurin:17-jdk-alpine
-
+# --- Build Stage ---
+FROM gradle:8.2.1-jdk17-alpine AS builder
 WORKDIR /app
+COPY . .
+RUN gradle build --no-daemon
 
-# Copy the JAR file
-COPY build/libs/*.jar app.jar
-
+# --- Runtime Stage ---
+FROM eclipse-temurin:17-jdk-alpine
+WORKDIR /app
+COPY --from=builder /app/build/libs/*.jar app.jar
 EXPOSE 8080
-
-# Run the JAR
 CMD ["java", "-jar", "app.jar"]
