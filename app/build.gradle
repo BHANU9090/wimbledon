@@ -46,3 +46,7 @@ application {
     // Define the main class for the application.
     mainClass = 'org.example.App'
 }
+
+bootJar {
+    archiveFileName = 'app.jar'  // Optional: gives a clean filename
+}
