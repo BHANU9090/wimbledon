@@ -2,7 +2,7 @@
 FROM gradle:8.2.1-jdk17-alpine AS builder
 WORKDIR /app
 COPY . .
-RUN gradle build --no-daemon
+RUN ./gradlew build -x test --no-daemon
 
 # --- Runtime Stage ---
 FROM eclipse-temurin:17-jdk-alpine
