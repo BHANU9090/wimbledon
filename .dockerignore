@@ -1,0 +1,36 @@
+# Build outputs (we'll build inside Docker)
+build/
+target/
+*.jar
+*.war
+
+# IDE files
+.idea/
+.vscode/
+*.iml
+*.ipr
+*.iws
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Git
+.git/
+.gitignore
+
+# Docker files
+Dockerfile
+.dockerignore
+
+# Documentation
+README.md
+docs/
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+tmp/
+temp/
