@@ -25,6 +25,8 @@ dependencies {
 
     // MySQL Connector - Updated to new artifact ID
     runtimeOnly 'com.mysql:mysql-connector-j:8.3.0'
+    runtimeOnly 'org.postgresql:postgresql'
+    runtimeOnly 'com.h2database:h2'  // Keep H2 for fallback
 
     // Testing
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
