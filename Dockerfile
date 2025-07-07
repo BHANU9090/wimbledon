@@ -1,25 +1,13 @@
-FROM openjdk:17-jdk-slim
-
+# --- Build Stage ---
+FROM gradle:8.2.1-jdk17-alpine AS builder
 WORKDIR /app
+COPY . .
+RUN ./gradlew bootJar -x test --no-daemon
 
-# Copy gradle wrapper and build files
-COPY gradlew .
-COPY gradle gradle/
-COPY build.gradle .
-COPY settings.gradle .
-COPY system.properties .
-
-# Make gradlew executable
-RUN chmod +x ./gradlew
-
-# Copy source code
-COPY app/ app/
-
-# Build the application
-RUN ./gradlew clean bootJar -x test
-
-# Expose port
+# --- Runtime Stage ---
+FROM eclipse-temurin:17-jdk-alpine
+WORKDIR /app
+# Fix: Copy from the app submodule's build directory
+COPY --from=builder /app/app/build/libs/*.jar app.jar
 EXPOSE 8080
-
-# Run the application
-CMD ["java", "-jar", "build/libs/*.jar"]
+CMD ["java", "-jar", "app.jar"]
